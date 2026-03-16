@@ -27,7 +27,7 @@ const InventoryControl: React.FC = () => {
   }));
 
   const handleAmountChange = (value: number) => {
-    const newValue = Math.max(0, Math.min(999, value));
+    const newValue = Math.max(0, Math.min(99999, value));
     dispatch(setItemAmount(newValue));
   };
 
@@ -47,7 +47,7 @@ const InventoryControl: React.FC = () => {
             value={itemAmount}
             onChange={inputHandler}
             min={0}
-            max={999}
+            max={99999}
             placeholder="0"
           />
           <div className="inventory-control-arrows">
