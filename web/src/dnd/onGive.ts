@@ -10,9 +10,7 @@ export const onGive = (item: Slot) => {
   const sourceItem = leftInventory.items.find((i) => i.slot === item.slot);
   const sourceCount = sourceItem?.count || 1;
 
-  const count = itemAmount === 0 || itemAmount > sourceCount
-    ? sourceCount
-    : itemAmount;
+  const count = itemAmount === 0 || itemAmount > sourceCount ? sourceCount : itemAmount;
 
   fetchNui('giveItem', { slot: item.slot, count: count });
 };

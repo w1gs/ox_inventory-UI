@@ -104,30 +104,17 @@ const InventoryGrid: React.FC<{ inventory: Inventory }> = ({ inventory }) => {
 
     const lowerSearch = searchTerm.toLowerCase();
 
-    return inventory.items.map((item) => {
-      if (!item.name) return item; // Empty slot, keep as is
+    return inventory.items.filter((item) => {
+      if (!item.name) return false;
 
-      // Get label from metadata, Items store, or fallback to name
       const itemLabel = item.metadata?.label || Items[item.name]?.label || item.name;
 
-      const matchesSearch =
-        item.name.toLowerCase().includes(lowerSearch) ||
-        itemLabel.toLowerCase().includes(lowerSearch);
-
-      // If doesn't match, return empty slot placeholder
-      if (!matchesSearch) {
-        return { ...item, name: undefined, count: undefined, metadata: undefined };
-      }
-
-      return item;
+      return item.name.toLowerCase().includes(lowerSearch) || itemLabel.toLowerCase().includes(lowerSearch);
     });
   }, [inventory.items, searchTerm]);
 
   // Count actual items (non-empty slots)
-  const itemCount = useMemo(
-    () => inventory.items.filter((item) => item.name).length,
-    [inventory.items]
-  );
+  const itemCount = useMemo(() => inventory.items.filter((item) => item.name).length, [inventory.items]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
@@ -146,7 +133,9 @@ const InventoryGrid: React.FC<{ inventory: Inventory }> = ({ inventory }) => {
         {inventory.maxWeight !== undefined && inventory.maxWeight > 0 && (
           <div className={`inventory-weight-display ${getWeightColorClass(weightPercent)}`}>
             <WeightIcon />
-            <span>{formatWeight(weight)}/{formatWeight(inventory.maxWeight)}</span>
+            <span>
+              {formatWeight(weight)}/{formatWeight(inventory.maxWeight)}
+            </span>
           </div>
         )}
       </div>

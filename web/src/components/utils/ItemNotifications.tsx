@@ -38,18 +38,11 @@ const ItemNotification = React.forwardRef(
 
         {/* Item image */}
         <div className="item-notification-image-wrapper">
-          <img
-            src={getItemUrl(slotItem)}
-            alt={slotItem.name}
-            className="item-notification-image"
-            draggable={false}
-          />
+          <img src={getItemUrl(slotItem)} alt={slotItem.name} className="item-notification-image" draggable={false} />
         </div>
 
         {/* Item label */}
-        <div className="item-notification-label">
-          {itemLabel}
-        </div>
+        <div className="item-notification-label">{itemLabel}</div>
       </div>
     );
   }

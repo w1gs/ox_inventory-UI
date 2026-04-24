@@ -129,24 +129,21 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
       className={`inventory-slot ${isEmpty ? 'inventory-slot-empty' : ''}`}
       style={{
         filter:
-          !isEmpty && (!canPurchaseItem(item, { type: inventoryType, groups: inventoryGroups }) || !canCraftItem(item, inventoryType))
+          !isEmpty &&
+          (!canPurchaseItem(item, { type: inventoryType, groups: inventoryGroups }) ||
+            !canCraftItem(item, inventoryType))
             ? 'brightness(80%) grayscale(100%)'
             : undefined,
         opacity: isDragging ? 0.4 : 1.0,
-        border: isOver ? '1px dashed rgba(74, 222, 128, 0.5)' : '',
-        backgroundColor: isOver && isEmpty ? 'rgba(74, 222, 128, 0.1)' : undefined,
+        border: isOver ? '1px dashed rgba(229, 231, 235, 0.5)' : '',
+        backgroundColor: isOver && isEmpty ? 'rgba(229, 231, 235, 0.1)' : undefined,
       }}
     >
       {/* Empty slot + icon */}
       {isEmpty && (
         <div className="empty-slot-icon-wrapper">
           <div className="empty-slot-icon-bg">
-            <svg
-              className="empty-slot-icon"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
+            <svg className="empty-slot-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4v16m8-8H4" />
             </svg>
           </div>
@@ -172,14 +169,10 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
           <div className="inventory-slot-noise" />
 
           {/* Hotbar slot number - top left */}
-          {inventoryType === 'player' && item.slot <= 5 && (
-            <div className="inventory-slot-number">{item.slot}</div>
-          )}
+          {inventoryType === 'player' && item.slot <= 5 && <div className="inventory-slot-number">{item.slot}</div>}
 
           {/* Count badge - top right */}
-          {item.count && item.count > 0 && (
-            <div className="inventory-slot-count">{item.count}</div>
-          )}
+          {item.count && item.count > 0 && <div className="inventory-slot-count">{item.count}</div>}
 
           {/* Centered item image */}
           <img
@@ -206,16 +199,13 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
             <div className="inventory-slot-price">
               {item?.currency !== 'money' && item.currency !== 'black_money' && item.currency ? (
                 <>
-                  <img
-                    src={getItemUrl(item.currency)}
-                    alt="currency"
-                    className="inventory-slot-currency-icon"
-                  />
+                  <img src={getItemUrl(item.currency)} alt="currency" className="inventory-slot-currency-icon" />
                   <span>{item.price.toLocaleString('en-us')}</span>
                 </>
               ) : (
                 <span style={{ color: item.currency === 'money' || !item.currency ? '#4ade80' : '#f87171' }}>
-                  {Locale.$ || '$'}{item.price.toLocaleString('en-us')}
+                  {Locale.$ || '$'}
+                  {item.price.toLocaleString('en-us')}
                 </span>
               )}
             </div>
